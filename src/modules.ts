@@ -8,3 +8,5 @@ export interface IBookItem{
     name: string,
     descr: string
 }
+
+export type SortKeys = 'name' | 'descr';
