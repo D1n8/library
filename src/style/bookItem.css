@@ -1,0 +1,14 @@
+.book{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid green;
+}
+
+
+.book__container{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
