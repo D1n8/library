@@ -1,6 +1,7 @@
 export interface IPropsBooksList{
     books: IBookItem[],
-    title: string
+    title: string,
+    onDelete: (book: IBookItem) => void
 }
 
 export interface IBookItem{

@@ -18,6 +18,10 @@ function App() {
     setBooks([...books, newBook]);
   }
 
+  const deleteBook = (book: IBookItem) => {
+    setBooks([...books].filter(currBook => currBook.id !== book.id))
+  }
+
   const sortBooks = (sort: SortKeys) => {
     setSelectedSort(sort);
     setBooks([...books].sort((a,b) => a[sort].localeCompare(b[sort])))
@@ -31,7 +35,7 @@ function App() {
         onChange={sortBooks}
         defaultValue={'Сортировка'}
         options={[{ name: 'По названию', value: 'name' }, { name: 'По описанию', value: 'descr' }]}/>
-      <BooksList books={books} title='Список книг' />
+      <BooksList books={books} title='Список книг' onDelete={deleteBook}/>
     </div>
   );
 }
