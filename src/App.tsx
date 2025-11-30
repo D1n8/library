@@ -7,8 +7,9 @@ import MySelect from './components/UI/select/MySelect';
 import MyInput from './components/UI/input/MyInput';
 import MyModal from './components/UI/modal/MyModal';
 import MyButton from './components/UI/button/MyButton';
+import BooksFilter from './components/BooksFilter';
 
-interface IFilter {
+export interface IFilter {
   sort: SortKeys | '',
   query: string
 }
@@ -51,17 +52,7 @@ function App() {
       <MyModal visible={modal} setVisible={setModal}>
         <BooksForm create={createBook}></BooksForm>
       </MyModal>
-      <div className="filters">
-        <MySelect
-          value={filter.sort}
-          onChange={selected => setFilter({ ...filter, sort: selected })}
-          defaultValue={'Сортировка'}
-          options={[{ name: 'По названию', value: 'name' }, { name: 'По описанию', value: 'descr' }]} />
-        <MyInput
-          placeholder={'Поиск...'}
-          value={filter.query}
-          onChange={(e: any) => setFilter({ ...filter, query: e.target.value })} />
-      </div>
+      <BooksFilter filter={filter} setFilter={setFilter}/>
 
       <BooksList books={searchedAndSortedBooks} title='Список книг' onDelete={deleteBook} />
     </div>
