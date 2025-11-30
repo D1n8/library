@@ -3,18 +3,22 @@ import { IPropsBooksList } from '../modules';
 import BookItem from './BooksItem';
 
 
-function BooksList({ books, title, onDelete}: IPropsBooksList) {
+function BooksList({ books, title, onDelete }: IPropsBooksList) {
     return (
         <section>
             {books.length !== 0
-                ? <div className='books__list'>
-                    <h2 style={{ textAlign: 'center' }}>{title}</h2>
-                    
-                    {books.map((book, index) => (
-                        <BookItem onDelete={onDelete} key={book.id} {...book} number={index} />
-                    ))}
-                </div>
-                : <p>Книг не найдено</p>
+                ?
+                <>
+                    <h2 style={{ textAlign: 'center', marginBlock: '20px' }}>{title}</h2>
+                    <div className='books__list'>
+
+                        {books.map((book, index) => (
+                            <BookItem onDelete={onDelete} key={book.id} {...book} number={index} />
+                        ))}
+                    </div>
+                </>
+
+                : <h2 style={{ textAlign: 'center', marginBlock: '20px' }}>Книг не найдено</h2>
             }
         </section>);
 }

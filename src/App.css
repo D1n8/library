@@ -12,3 +12,8 @@
   margin: 20px auto;
   max-width: 800px;
 }
+
+.filters{
+  display: flex;
+  gap: 20px;
+}

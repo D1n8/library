@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { IBookItem, SortKeys } from './modules';
 import BooksList from './components/BooksList';
 import BooksForm from './components/BooksForm';
 import MySelect from './components/UI/select/MySelect';
+import MyInput from './components/UI/input/MyInput';
 
 function App() {
   const [books, setBooks] = useState<IBookItem[]>([
@@ -13,8 +14,21 @@ function App() {
   ]);
 
   const [selectedSort, setSelectedSort] = useState<SortKeys | ''>('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const createBook = (newBook: IBookItem) => {
+  const sortedBooks = useMemo(() => {
+    if (selectedSort) {
+      return [...books].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+    } else {
+      return books
+    }
+  }, [selectedSort, books])
+
+  const searchedAndSortedBooks = useMemo(() => {
+    return [...sortedBooks].filter(book => book.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  }, [searchQuery, sortedBooks])
+
+  const createBook = (newBook: IBookItem) => {  
     setBooks([...books, newBook]);
   }
 
@@ -24,18 +38,26 @@ function App() {
 
   const sortBooks = (sort: SortKeys) => {
     setSelectedSort(sort);
-    setBooks([...books].sort((a,b) => a[sort].localeCompare(b[sort])))
   }
 
   return (
     <div className='main'>
       <BooksForm create={createBook}></BooksForm>
-      <MySelect
-        value={selectedSort}
-        onChange={sortBooks}
-        defaultValue={'Сортировка'}
-        options={[{ name: 'По названию', value: 'name' }, { name: 'По описанию', value: 'descr' }]}/>
-      <BooksList books={books} title='Список книг' onDelete={deleteBook}/>
+      <hr style={{marginBlock: '20px'}}/>
+
+      <div className="filters">
+        <MySelect
+          value={selectedSort}
+          onChange={sortBooks}
+          defaultValue={'Сортировка'}
+          options={[{ name: 'По названию', value: 'name' }, { name: 'По описанию', value: 'descr' }]} />
+        <MyInput
+          placeholder={'Поиск...'}
+          value={searchQuery}
+          onChange={(e: any) => setSearchQuery(e.target.value)} />
+      </div>
+
+      <BooksList books={searchedAndSortedBooks} title='Список книг' onDelete={deleteBook} />
     </div>
   );
 }
