@@ -6,6 +6,11 @@ import BooksForm from './components/BooksForm';
 import MySelect from './components/UI/select/MySelect';
 import MyInput from './components/UI/input/MyInput';
 
+interface IFilter{
+  sort: SortKeys | '',
+  query: string
+}
+
 function App() {
   const [books, setBooks] = useState<IBookItem[]>([
     { id: 5, name: "Book 1", descr: 'qweqwe' },
@@ -13,20 +18,19 @@ function App() {
     { id: 3, name: "Book 3", descr: 'Boooook descr descr' }
   ]);
 
-  const [selectedSort, setSelectedSort] = useState<SortKeys | ''>('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState<IFilter>({sort: '', query: ''})
 
   const sortedBooks = useMemo(() => {
-    if (selectedSort) {
-      return [...books].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+    if (filter.sort) {
+      return [...books].sort((a, b) => a[filter.sort as SortKeys].localeCompare(b[filter.sort as SortKeys]))
     } else {
       return books
     }
-  }, [selectedSort, books])
+  }, [filter.sort, books])
 
   const searchedAndSortedBooks = useMemo(() => {
-    return [...sortedBooks].filter(book => book.name.toLowerCase().includes(searchQuery.toLowerCase()))
-  }, [searchQuery, sortedBooks])
+    return [...sortedBooks].filter(book => book.name.toLowerCase().includes(filter.query.toLowerCase()))
+  }, [filter.query, sortedBooks])
 
   const createBook = (newBook: IBookItem) => {  
     setBooks([...books, newBook]);
@@ -36,10 +40,6 @@ function App() {
     setBooks([...books].filter(currBook => currBook.id !== book.id))
   }
 
-  const sortBooks = (sort: SortKeys) => {
-    setSelectedSort(sort);
-  }
-
   return (
     <div className='main'>
       <BooksForm create={createBook}></BooksForm>
@@ -47,14 +47,14 @@ function App() {
 
       <div className="filters">
         <MySelect
-          value={selectedSort}
-          onChange={sortBooks}
+          value={filter.sort}
+          onChange={selected => setFilter({...filter, sort: selected})}
           defaultValue={'Сортировка'}
           options={[{ name: 'По названию', value: 'name' }, { name: 'По описанию', value: 'descr' }]} />
         <MyInput
           placeholder={'Поиск...'}
-          value={searchQuery}
-          onChange={(e: any) => setSearchQuery(e.target.value)} />
+          value={filter.query}
+          onChange={(e: any) => setFilter({...filter, query: e.target.value})} />
       </div>
 
       <BooksList books={searchedAndSortedBooks} title='Список книг' onDelete={deleteBook} />
