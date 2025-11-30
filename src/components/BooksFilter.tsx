@@ -1,7 +1,7 @@
 import * as React from 'react';
 import MySelect from './UI/select/MySelect';
 import MyInput from './UI/input/MyInput';
-import { IFilter } from '../App';
+import { IFilter } from '../modules';
 
 interface IBooksFilterProps{
     filter: IFilter,

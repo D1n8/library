@@ -1,18 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.css';
-import { IBookItem, SortKeys } from './modules';
+import { IBookItem, IFilter } from './modules';
 import BooksList from './components/BooksList';
 import BooksForm from './components/BooksForm';
-import MySelect from './components/UI/select/MySelect';
-import MyInput from './components/UI/input/MyInput';
 import MyModal from './components/UI/modal/MyModal';
 import MyButton from './components/UI/button/MyButton';
 import BooksFilter from './components/BooksFilter';
-
-export interface IFilter {
-  sort: SortKeys | '',
-  query: string
-}
+import { useBooks } from './hooks/usePosts';
 
 function App() {
   const [books, setBooks] = useState<IBookItem[]>([
@@ -25,17 +19,7 @@ function App() {
 
   const [filter, setFilter] = useState<IFilter>({ sort: '', query: '' })
 
-  const sortedBooks = useMemo(() => {
-    if (filter.sort) {
-      return [...books].sort((a, b) => a[filter.sort as SortKeys].localeCompare(b[filter.sort as SortKeys]))
-    } else {
-      return books
-    }
-  }, [filter.sort, books])
-
-  const searchedAndSortedBooks = useMemo(() => {
-    return [...sortedBooks].filter(book => book.name.toLowerCase().includes(filter.query.toLowerCase()))
-  }, [filter.query, sortedBooks])
+  const searchedAndSortedBooks = useBooks(books, filter.sort, filter.query);
 
   const createBook = (newBook: IBookItem) => {
     setBooks([...books, newBook]);
@@ -48,11 +32,11 @@ function App() {
 
   return (
     <div className='main'>
-      <MyButton style={{marginBottom: "20px"}} onClick={() => setModal(true)}>Создать пользователя</MyButton>
+      <MyButton style={{ marginBottom: "20px" }} onClick={() => setModal(true)}>Создать книгу</MyButton>
       <MyModal visible={modal} setVisible={setModal}>
         <BooksForm create={createBook}></BooksForm>
       </MyModal>
-      <BooksFilter filter={filter} setFilter={setFilter}/>
+      <BooksFilter filter={filter} setFilter={setFilter} />
 
       <BooksList books={searchedAndSortedBooks} title='Список книг' onDelete={deleteBook} />
     </div>

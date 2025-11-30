@@ -11,3 +11,8 @@ export interface IBookItem{
 }
 
 export type SortKeys = 'name' | 'descr';
+
+export interface IFilter {
+  sort: SortKeys | '',
+  query: string
+}

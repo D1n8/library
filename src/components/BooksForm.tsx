@@ -22,7 +22,7 @@ function BooksForm({ create }: BooksFormProps) {
 
     return (
         <>
-            <h3 style={{marginBottom: "20px", textAlign: 'center'}}>Создать пользователя</h3>
+            <h3 style={{marginBottom: "20px", textAlign: 'center'}}>Создать книгу</h3>
             <form className="form" onSubmit={addBook}>
                 <MyInput
                     required
