@@ -3,4 +3,11 @@
     color: teal;
     border: 1px solid teal;
     background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.myBtn:hover, .myBtn:active{
+    background-color: teal;
+    color: white;
 }
