@@ -23,6 +23,7 @@ function BooksForm({ create }: BooksFormProps) {
     return (
         <form className="form" onSubmit={addBook}>
             <MyInput
+                style={{ width: '100%' }}
                 required
                 placeholder="Название"
                 value={book.name}
@@ -32,6 +33,7 @@ function BooksForm({ create }: BooksFormProps) {
             />
 
             <MyInput
+                style={{ width: '100%' }}
                 required
                 placeholder="Описание"
                 value={book.descr}
