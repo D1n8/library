@@ -21,29 +21,30 @@ function BooksForm({ create }: BooksFormProps) {
     };
 
     return (
-        <form className="form" onSubmit={addBook}>
-            <MyInput
-                style={{ width: '100%' }}
-                required
-                placeholder="Название"
-                value={book.name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setBook({ ...book, name: e.target.value })
-                }
-            />
+        <>
+            <h3 style={{marginBottom: "20px", textAlign: 'center'}}>Создать пользователя</h3>
+            <form className="form" onSubmit={addBook}>
+                <MyInput
+                    required
+                    placeholder="Название"
+                    value={book.name}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setBook({ ...book, name: e.target.value })
+                    }
+                />
 
-            <MyInput
-                style={{ width: '100%' }}
-                required
-                placeholder="Описание"
-                value={book.descr}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setBook({ ...book, descr: e.target.value })
-                }
-            />
+                <MyInput
+                    required
+                    placeholder="Описание"
+                    value={book.descr}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setBook({ ...book, descr: e.target.value })
+                    }
+                />
 
-            <MyButton type="submit">Создать</MyButton>
-        </form>
+                <MyButton type="submit">Создать</MyButton>
+            </form>
+        </>
     );
 }
 
