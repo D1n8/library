@@ -8,6 +8,8 @@ interface IPropsBookItem extends IBookItem {
 }
 
 function BookItem({onDelete, number, ...book}: IPropsBookItem) {
+    const date = book.publishDate.toString().split('T')[0].split('-').reverse().join('.')
+    
     return (
         <article className='book'>
             <div className="book__container">
@@ -16,7 +18,7 @@ function BookItem({onDelete, number, ...book}: IPropsBookItem) {
                     <h3>{book.title}</h3>
                     <p>{book.description}</p>
                     <p>Количество страниц: {book.pageCount}</p>
-                    {/* <p>{book.publishDate.getDate()}</p> */}
+                    <p>{date}</p>
                 </div>  
             </div>
             <MyButton onClick={() => onDelete(book)}>Удалить</MyButton>
