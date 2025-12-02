@@ -9,7 +9,7 @@ function BooksList({ books, title, onDelete }: IPropsBooksList) {
             {books.length !== 0
                 ?
                 <>
-                    <h2 style={{ textAlign: 'center', marginBlock: '20px' }}>{title}</h2>
+                    <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>{title}</h2>
                     <div className='books__list'>
 
                         {books.map((book, index) => (

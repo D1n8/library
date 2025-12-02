@@ -9,25 +9,23 @@ import BooksFilter from './components/BooksFilter';
 import { useBooks } from './hooks/useBooks';
 import BooksService from './API/BooksService';
 import { Audio, Oval } from 'react-loader-spinner'
+import { useFetching } from './hooks/useFetching';
 
 function App() {
   const [books, setBooks] = useState<IBookItem[]>([]);
   const [modal, setModal] = useState(false)
   const [filter, setFilter] = useState<IFilter>({ sort: '', query: '' })
-  const [isLoadingBooks, setIsLoadingBooks] = useState(false);
+
+  const [fetchBooks, isLoadingBooks, fetchBooksError] = useFetching(async () => {
+      const books = await BooksService.getAll();
+      setBooks(books)
+  })
 
   useEffect(() => {
     fetchBooks()
   }, [])
 
   const searchedAndSortedBooks = useBooks(books, filter.sort, filter.query);
-
-  async function fetchBooks() {
-    setIsLoadingBooks(true);
-    const books = await BooksService.getAll();
-    setBooks(books)
-    setIsLoadingBooks(false)
-  }
 
   const createBook = (newBook: IBookItem) => {
     setBooks([...books, newBook]);
@@ -45,6 +43,7 @@ function App() {
         <BooksForm create={createBook}></BooksForm>
       </MyModal>
       <BooksFilter filter={filter} setFilter={setFilter} />
+      { fetchBooksError && <h3>Произошла ошибка: {fetchBooksError.toString()}</h3>}
       {isLoadingBooks
         ? <div style={{ marginTop: 50, display: 'flex', justifyContent: "center" }}><Oval
           height={60}

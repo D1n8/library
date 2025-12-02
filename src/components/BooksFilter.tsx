@@ -10,7 +10,7 @@ interface IBooksFilterProps{
 
 function BooksFilter({filter, setFilter}: IBooksFilterProps) {
     return (
-        <div className="filters">
+        <div style={{marginBottom: 20}} className="filters">
             <MySelect
                 value={filter.sort}
                 onChange={selected => setFilter({ ...filter, sort: selected })}
