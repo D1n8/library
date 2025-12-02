@@ -22,7 +22,7 @@ function BooksForm({ create }: BooksFormProps) {
 
     return (
         <>
-            <h3 style={{marginBottom: "20px", textAlign: 'center'}}>Создать книгу</h3>
+            <h3 style={{ marginBottom: "20px", textAlign: 'center' }}>Создать книгу</h3>
             <form className="form" onSubmit={addBook}>
                 <MyInput
                     required
@@ -42,6 +42,23 @@ function BooksForm({ create }: BooksFormProps) {
                     }
                 />
 
+                <MyInput
+                    placeholder="Отрывок"
+                    value={book.excerpt}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setBook({ ...book, excerpt: e.target.value })
+                    }
+                />
+
+                <input
+                    type='number'
+                    id="number"
+                    min={0}
+                    value={book.pageCount}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setBook({ ...book, pageCount: Number(e.target.value) })
+                    }
+                />
                 <MyButton type="submit">Создать</MyButton>
             </form>
         </>
