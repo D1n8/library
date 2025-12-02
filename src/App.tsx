@@ -7,7 +7,7 @@ import MyModal from './components/UI/modal/MyModal';
 import MyButton from './components/UI/button/MyButton';
 import BooksFilter from './components/BooksFilter';
 import { useBooks } from './hooks/useBooks';
-import axios from 'axios';
+import BooksService from './API/BooksService';
 
 function App() {
   const [books, setBooks] = useState<IBookItem[]>([]);
@@ -21,8 +21,8 @@ function App() {
   const searchedAndSortedBooks = useBooks(books, filter.sort, filter.query);
 
   async function fetchBooks() {
-    const response = await axios.get('https://fakerestapi.azurewebsites.net/api/v1/Books');
-    setBooks(response.data)
+    const books = await BooksService.getAll();
+    setBooks(books)
   }
 
   const createBook = (newBook: IBookItem) => {
