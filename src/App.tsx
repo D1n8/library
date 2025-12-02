@@ -8,11 +8,13 @@ import MyButton from './components/UI/button/MyButton';
 import BooksFilter from './components/BooksFilter';
 import { useBooks } from './hooks/useBooks';
 import BooksService from './API/BooksService';
+import { Audio, Oval } from 'react-loader-spinner'
 
 function App() {
   const [books, setBooks] = useState<IBookItem[]>([]);
   const [modal, setModal] = useState(false)
   const [filter, setFilter] = useState<IFilter>({ sort: '', query: '' })
+  const [isLoadingBooks, setIsLoadingBooks] = useState(false);
 
   useEffect(() => {
     fetchBooks()
@@ -21,8 +23,10 @@ function App() {
   const searchedAndSortedBooks = useBooks(books, filter.sort, filter.query);
 
   async function fetchBooks() {
+    setIsLoadingBooks(true);
     const books = await BooksService.getAll();
     setBooks(books)
+    setIsLoadingBooks(false)
   }
 
   const createBook = (newBook: IBookItem) => {
@@ -41,8 +45,19 @@ function App() {
         <BooksForm create={createBook}></BooksForm>
       </MyModal>
       <BooksFilter filter={filter} setFilter={setFilter} />
-
-      <BooksList books={searchedAndSortedBooks} title='Список книг' onDelete={deleteBook} />
+      {isLoadingBooks
+        ? <div style={{ marginTop: 50, display: 'flex', justifyContent: "center" }}><Oval
+          height={60}
+          width={60}
+          color="teal"
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#teal"
+          strokeWidth={4}
+          strokeWidthSecondary={4}
+        /></div>
+        : <BooksList books={searchedAndSortedBooks} title='Список книг' onDelete={deleteBook} />
+      }
     </div>
   );
 }
