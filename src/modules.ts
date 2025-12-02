@@ -6,11 +6,14 @@ export interface IPropsBooksList{
 
 export interface IBookItem{
     id: number,
-    name: string,
-    descr: string
+    title: string,
+    description: string,
+    excerpt: string,
+    pageCount: number,
+    publishDate: Date
 }
 
-export type SortKeys = 'name' | 'descr';
+export type SortKeys = 'title' | 'description';
 
 export interface IFilter {
   sort: SortKeys | '',

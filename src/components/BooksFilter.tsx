@@ -15,7 +15,7 @@ function BooksFilter({filter, setFilter}: IBooksFilterProps) {
                 value={filter.sort}
                 onChange={selected => setFilter({ ...filter, sort: selected })}
                 defaultValue={'Сортировка'}
-                options={[{ name: 'По названию', value: 'name' }, { name: 'По описанию', value: 'descr' }]} />
+                options={[{ name: 'По названию', value: 'title' }, { name: 'По описанию', value: 'description' }]} />
             <MyInput
                 placeholder={'Поиск...'}
                 value={filter.query}

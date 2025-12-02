@@ -18,7 +18,7 @@ export function useBooks(books: IBookItem[], sort: SortKeys | '', query: string)
     const sortedBooks = useSortedBooks(books, sort);
     
     const searchedAndSortedBooks = useMemo(() => {
-        return [...sortedBooks].filter(book => book.name.toLowerCase().includes(query.toLowerCase()))
+        return [...sortedBooks].filter(book => book.title.toLowerCase().includes(query.toLowerCase()))
     }, [query, sortedBooks])
 
     return searchedAndSortedBooks;

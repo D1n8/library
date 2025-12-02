@@ -8,7 +8,7 @@ type BooksFormProps = {
 };
 
 function BooksForm({ create }: BooksFormProps) {
-    const [book, setBook] = useState({ name: '', descr: '' });
+    const [book, setBook] = useState({ title: '', description: '', excerpt: '', pageCount: 0, publishDate: new Date() });
 
     const addBook = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -17,7 +17,7 @@ function BooksForm({ create }: BooksFormProps) {
             id: Date.now()
         };
         create(newBook);
-        setBook({ name: '', descr: '' });
+        setBook({ title: '', description: '', excerpt: '', pageCount: 0, publishDate: new Date() });
     };
 
     return (
@@ -27,18 +27,18 @@ function BooksForm({ create }: BooksFormProps) {
                 <MyInput
                     required
                     placeholder="Название"
-                    value={book.name}
+                    value={book.title}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setBook({ ...book, name: e.target.value })
+                        setBook({ ...book, title: e.target.value })
                     }
                 />
 
                 <MyInput
                     required
                     placeholder="Описание"
-                    value={book.descr}
+                    value={book.description}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setBook({ ...book, descr: e.target.value })
+                        setBook({ ...book, description: e.target.value })
                     }
                 />
 

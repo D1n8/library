@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { IBookItem, IFilter } from './modules';
 import BooksList from './components/BooksList';
@@ -6,20 +6,24 @@ import BooksForm from './components/BooksForm';
 import MyModal from './components/UI/modal/MyModal';
 import MyButton from './components/UI/button/MyButton';
 import BooksFilter from './components/BooksFilter';
-import { useBooks } from './hooks/usePosts';
+import { useBooks } from './hooks/useBooks';
+import axios from 'axios';
 
 function App() {
-  const [books, setBooks] = useState<IBookItem[]>([
-    { id: 5, name: "Book 1", descr: 'qweqwe' },
-    { id: 2, name: "Book 2", descr: 'Bescr descr' },
-    { id: 3, name: "Book 3", descr: 'Boooook descr descr' }
-  ]);
-
+  const [books, setBooks] = useState<IBookItem[]>([]);
   const [modal, setModal] = useState(false)
-
   const [filter, setFilter] = useState<IFilter>({ sort: '', query: '' })
 
+  useEffect(() => {
+    fetchBooks()
+  }, [])
+
   const searchedAndSortedBooks = useBooks(books, filter.sort, filter.query);
+
+  async function fetchBooks() {
+    const response = await axios.get('https://fakerestapi.azurewebsites.net/api/v1/Books');
+    setBooks(response.data)
+  }
 
   const createBook = (newBook: IBookItem) => {
     setBooks([...books, newBook]);

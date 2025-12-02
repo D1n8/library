@@ -13,8 +13,10 @@ function BookItem({onDelete, number, ...book}: IPropsBookItem) {
             <div className="book__container">
                 <p>{number + 1}</p>
                 <div className="book__text">
-                    <h3>{book.name} id: {book.id}</h3>
-                    <p>{book.descr}</p>
+                    <h3>{book.title}</h3>
+                    <p>{book.description}</p>
+                    <p>Количество страниц: {book.pageCount}</p>
+                    {/* <p>{book.publishDate.getDate()}</p> */}
                 </div>  
             </div>
             <MyButton onClick={() => onDelete(book)}>Удалить</MyButton>
