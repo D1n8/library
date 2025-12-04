@@ -1,0 +1,12 @@
+header{
+    display: flex;
+    padding: 20px 30px;
+    gap: 30px;
+    background-color: teal;
+}
+
+.link{
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+}
