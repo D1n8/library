@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classes from './MySelect.module.css'
 
 interface ISelectProps {
     defaultValue: string,
@@ -9,7 +10,7 @@ interface ISelectProps {
 
 function MySelect({ defaultValue, options, value, onChange }: ISelectProps) {
     return (
-        <select name="filterBy" value={value} onChange={(e) => onChange(e.target.value)}>
+        <select className={classes.mySlct} name="filterBy" value={value} onChange={(e) => onChange(e.target.value)}>
             <option value="" disabled>{defaultValue}</option>
             {
                 options.map(option =>

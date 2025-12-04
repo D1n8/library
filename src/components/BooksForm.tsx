@@ -51,6 +51,7 @@ function BooksForm({ create }: BooksFormProps) {
                 />
 
                 <input
+                    style={{fontFamily: 'Montserrat'}}
                     type='number'
                     id="number"
                     min={0}

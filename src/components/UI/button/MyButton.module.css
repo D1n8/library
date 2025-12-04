@@ -5,6 +5,7 @@
     background-color: transparent;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    font-family: 'Montserrat', sans-serif;;
 }
 
 .myBtn:hover, .myBtn:active{
